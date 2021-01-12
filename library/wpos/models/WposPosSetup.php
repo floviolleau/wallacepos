@@ -539,12 +539,12 @@ class WposPosSetup
             $result['error'] = $errors;
             return $result;
         }
-        if ($this->devMdl->edit($this->data->id, $this->data->name)!==false) {
+        if ($this->locMdl->edit($this->data->id, $this->data->name)!==false) {
             $result['data'] = $this->data;
             // log data
             Logger::write("Location updated", "CONFIG", json_encode($this->data));
         } else {
-            $result['error'] = "Could not update the location: ".$this->devMdl->errorInfo;
+            $result['error'] = "Could not update the location: ".$this->locMdl->errorInfo;
         }
         return $result;
     }
@@ -565,7 +565,7 @@ class WposPosSetup
             $result['error'] = "The location is currently active, disable locations devices or update to a new location before deleting.";
             return $result;
         }
-        if ($this->devMdl->remove($this->data->id)!==false) {
+        if ($this->locMdl->remove($this->data->id)!==false) {
             $result['data'] = true;
             // log data
             Logger::write("Location deleted with id:".$this->data->id, "CONFIG");
@@ -593,7 +593,7 @@ class WposPosSetup
                 return $result;
             }
         }
-        if ($this->devMdl->setDisabled($this->data->id, boolval($this->data->disable))===false) {
+        if ($this->locMdl->setDisabled($this->data->id, boolval($this->data->disable))===false) {
             $result['error'] = "Could not enable/disable the location: ".$this->locMdl->errorInfo;
         }
 
